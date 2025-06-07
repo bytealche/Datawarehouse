@@ -1,5 +1,6 @@
 # Datawarehouse
 
+
 This project is a **central library** (*Data Warehouse*) for a company's important information. It uses automated processes (*ETL Pipelines*) to bring in data from different places and organize it into distinct levels based on quality (*Medallion Architecture*). The data is carefully structured (*Data Modeling*) into easy-to-understand lists (*Tables*) following clear rules (*Naming Conventions*) so people can easily find and use it for reports and analysis.
 
 
