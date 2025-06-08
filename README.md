@@ -30,7 +30,7 @@ flowchart TD
 ## Chapters
 
 1. [Data Warehouse
-](data-warehouse)
+](#data-warehouse)
 2. [ETL Pipelines
 ](02_etl_pipelines_.md)
 3. [Medallion Architecture (Layers)
