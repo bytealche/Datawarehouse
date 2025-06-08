@@ -96,7 +96,7 @@ Ready to learn how data actually gets into this organized "library"? Let's move 
 
 ## ETL Pipelines
 
-Welcome back! In [Chapter 1: Data Warehouse](01_data_warehouse_.md), we learned that a data warehouse is our central, organized library for important business data, designed to make analysis easy. We saw how it helps answer complex questions by bringing data together.
+Welcome back! In [Data Warehouse](#data-warehouse), we learned that a data warehouse is our central, organized library for important business data, designed to make analysis easy. We saw how it helps answer complex questions by bringing data together.
 
 But how does all that scattered data from different source systems actually *get* into this organized library? How is it cleaned up and prepared for analysis?
 
@@ -334,7 +334,7 @@ ETL pipelines are the engine that drives data into the data warehouse. They auto
 
 Now that we understand how data gets *into* the data warehouse and is prepared, how do we organize the data *within* the warehouse itself? Is there a standard way to structure the different stages of transformed data? Yes, and that's what we'll explore in the next chapter.
 
-[Next Chapter: Medallion Architecture (Layers)](#medallion-architecture-layers)
+[Medallion Architecture (Layers)](#medallion-architecture-layers)
 
 ---
 
@@ -342,7 +342,7 @@ Now that we understand how data gets *into* the data warehouse and is prepared, 
 
 ## Medallion Architecture (Layers)
 
-Welcome back! In [Chapter 1: Data Warehouse](01_data_warehouse_.md), we learned that a data warehouse is our central, organized library for business data. In [Chapter 2: ETL Pipelines](#etl-pipelines), we discovered how ETL (Extract, Transform, Load) is the process that brings raw data into the warehouse and starts cleaning and preparing it.
+Welcome back! In [Data Warehouse](#data-warehouse), we learned that a data warehouse is our central, organized library for business data. In [ETL Pipelines](#etl-pipelines), we discovered how ETL (Extract, Transform, Load) is the process that brings raw data into the warehouse and starts cleaning and preparing it.
 
 Now that the data is arriving, where does it go inside the warehouse? Do we just dump everything into one big pile? Or do we keep the raw data, the semi-cleaned data, and the fully ready-to-analyze data separate?
 
@@ -378,7 +378,7 @@ Let's explore each layer.
     *   **Resiliency:** If there's a mistake in a transformation step later on, you can easily re-process the original raw data from Bronze rather than going back to the source system.
     *   **Speed to Ingest:** You can land data quickly without complex transformation logic slowing things down.
 *   **Analogy:** This is like the delivery truck dropping off all the raw ingredients (vegetables, meat, spices) from various markets into a receiving area. They aren't washed, chopped, or mixed yet.
-*   **Naming Convention (Ref. [Naming Conventions](#naming-conventions)):** Tables here often follow a pattern like `<sourcesystem>_<entity>`, keeping the original source names. E.g., `crm_customer_info`, `erp_sales_orders`. You might add technical columns like `dwh_load_date` here (as mentioned in [Chapter 2: ETL Pipelines](#etl-pipelines) and [Naming Conventions](#naming-conventions)).
+*   **Naming Convention (Ref. [Naming Conventions](#naming-conventions)):** Tables here often follow a pattern like `<sourcesystem>_<entity>`, keeping the original source names. E.g., `crm_customer_info`, `erp_sales_orders`. You might add technical columns like `dwh_load_date` here (as mentioned in [ETL Pipelines](#etl-pipelines) and [Naming Conventions](#naming-conventions)).
 
 ### 2. Silver Layer (The Refined Ingots)
 
@@ -412,7 +412,7 @@ Let's explore each layer.
 
 ## How ETL Pipelines Fit with Medallion Architecture
 
-In [Chapter 2: ETL Pipelines](#etl-pipelines), we saw how ETL moves data from sources *into* the data warehouse. With the Medallion Architecture, ETL pipelines are responsible for moving data *between* the layers as well.
+In [ETL Pipelines](#etl-pipelines), we saw how ETL moves data from sources *into* the data warehouse. With the Medallion Architecture, ETL pipelines are responsible for moving data *between* the layers as well.
 
 You might have separate ETL processes or stages for each transition:
 
@@ -536,7 +536,7 @@ Now that we understand *how* data is layered, let's dive into the fundamental bu
 
 Welcome back, data explorer!
 
-In our previous chapters, we learned that a [Data Warehouse](01_data_warehouse_.md) is our central data library. We saw how [ETL Pipelines](#etl-pipelines) are the processes that gather, clean, and move data into the warehouse. We also learned that we organize the data *within* the warehouse using the [Medallion Architecture (Layers)](#medallion-architecture-layers) (Bronze for raw data, Silver for cleaned data, Gold for business-ready data).
+In our previous chapters, we learned that a [Data Warehouse](#data-warehouse) is our central data library. We saw how [ETL Pipelines](#etl-pipelines) are the processes that gather, clean, and move data into the warehouse. We also learned that we organize the data *within* the warehouse using the [Medallion Architecture (Layers)](#medallion-architecture-layers) (Bronze for raw data, Silver for cleaned data, Gold for business-ready data).
 
 Now, let's talk about the fundamental structures where the data actually *lives* inside this organized library and within these layers. Think of these structures as the specific shelves, sections, and filing cabinets where the books (our data) are neatly placed. These are called **Tables**.
 
@@ -555,7 +555,7 @@ Imagine a table storing customer information. It might have columns like `custom
 
 ## Tables in the Medallion Architecture Layers
 
-We learned about the Bronze, Silver, and Gold layers in [Chapter 3: Medallion Architecture (Layers)](#medallion-architecture-layers). Tables are the physical structures that hold the data *within* each of these layers. The same data might exist in tables in different layers, but in different states of transformation.
+We learned about the Bronze, Silver, and Gold layers in [Medallion Architecture (Layers)](#medallion-architecture-layers). Tables are the physical structures that hold the data *within* each of these layers. The same data might exist in tables in different layers, but in different states of transformation.
 
 Let's look at how tables are used in each layer:
 
@@ -695,7 +695,7 @@ Now that we know data lives in tables, how do we decide *what* tables to create 
 
 ## Data Modeling
 
-Welcome back! In our last few chapters, we've learned that a [Data Warehouse](01_data_warehouse_.md) is our organized data library, and [ETL Pipelines](#etl-pipelines) are the processes that bring data in and clean it, organizing it into layers using the [Medallion Architecture (Layers)](#medallion-architecture-layers) (Bronze, Silver, Gold). We also saw that the data itself is stored physically within these layers in [Tables](#tables).
+Welcome back! In our last few chapters, we've learned that a [Data Warehouse](#data-warehouse) is our organized data library, and [ETL Pipelines](#etl-pipelines) are the processes that bring data in and clean it, organizing it into layers using the [Medallion Architecture (Layers)](#medallion-architecture-layers) (Bronze, Silver, Gold). We also saw that the data itself is stored physically within these layers in [Tables](#tables).
 
 So, we have data, it's clean (in the Silver layer), and it's ready to be put into the final layer, the Gold layer, which is designed specifically for analysis. But how do we structure the [Tables](#tables) in that Gold layer? Do we just make a giant table with everything in it? Or do we keep things separate? And how do we make sure the data is easy for analysis tools and business users to query?
 
@@ -874,7 +874,7 @@ CREATE TABLE gold.fact_sales (
 
 ## Data Modeling and the ETL Pipeline / Medallion Architecture
 
-Data modeling defines the *target structure* for the Gold layer. The ETL pipelines ([Chapter 2: ETL Pipelines](#etl-pipelines)), specifically the ones moving data from Silver to Gold within the [Medallion Architecture (Layers)](#medallion-architecture-layers), are responsible for building and loading these dimension and fact tables.
+Data modeling defines the *target structure* for the Gold layer. The ETL pipelines ([ETL Pipelines](#etl-pipelines)), specifically the ones moving data from Silver to Gold within the [Medallion Architecture (Layers)](#medallion-architecture-layers), are responsible for building and loading these dimension and fact tables.
 
 ```mermaid
 graph LR
@@ -922,7 +922,7 @@ Now that we know how to structure our data with Data Modeling, let's take a clos
 
 ## Naming Conventions
 
-Welcome back! In our journey through the data warehouse, we've learned that it's our organized data library ([Chapter 1: Data Warehouse](01_data_warehouse_.md)). We use [ETL Pipelines](#etl-pipelines) ([Chapter 2]) to fill it with data, organizing that data into layers ([Chapter 3: Medallion Architecture (Layers)](#medallion-architecture-layers)) of increasing cleanliness (Bronze, Silver, Gold). Inside these layers, the data lives in [Tables](#tables) ([Chapter 4]), structured by [Data Modeling](#data-modeling) ([Chapter 5]), especially in the Gold layer, to make analysis easy.
+Welcome back! In our journey through the data warehouse, we've learned that it's our organized data library ([Data Warehouse](#data-warehouse)). We use [ETL Pipelines](#etl-pipelines) ([Chapter 2]) to fill it with data, organizing that data into layers ([Medallion Architecture (Layers)](#medallion-architecture-layers)) of increasing cleanliness (Bronze, Silver, Gold). Inside these layers, the data lives in [Tables](#tables) ([Chapter 4]), structured by [Data Modeling](#data-modeling) ([Chapter 5]), especially in the Gold layer, to make analysis easy.
 
 Throughout these chapters, you might have noticed we've been using specific ways to name our tables and columns – like `dim_customers`, `fact_sales`, `customer_key`, and `dwh_load_date`. Why is this important?
 
