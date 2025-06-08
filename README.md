@@ -83,7 +83,7 @@ Without a data warehouse, you'd struggle. With a data warehouse:
 
 A data warehouse is the destination, the place where the data lives in an organized way. But how does the data get *into* the data warehouse in the first place? And how do we ensure it's clean and structured correctly?
 
-That process involves several steps and concepts that we will explore in the following chapters. We'll talk about the steps needed to Extract, Transform, and Load data ([ETL Pipelines](02_etl_pipelines_.md)), how we might organize the data inside the warehouse into different layers ([Medallion Architecture (Layers)](03_medallion_architecture__layers__.md)), how the data is physically stored ([Tables](04_tables_.md)), the blueprint for organizing data for analysis ([Data Modeling](05_data_modeling_.md)), and consistent rules for naming things ([Naming Conventions](06_naming_conventions_.md)).
+That process involves several steps and concepts that we will explore in the following chapters. We'll talk about the steps needed to Extract, Transform, and Load data ([ETL Pipelines](#etl-pipelines)), how we might organize the data inside the warehouse into different layers ([Medallion Architecture (Layers)](#medallion-architecture-layers)), how the data is physically stored ([Tables](#tables)), the blueprint for organizing data for analysis ([Data Modeling](#data-modeling)), and consistent rules for naming things ([Naming Conventions](#naming-conventions)).
 
 In summary, a data warehouse is a powerful central hub that makes it possible to combine, clean, and analyze data from across your business to gain valuable insights and make informed decisions.
 
@@ -148,15 +148,15 @@ This is usually the most complex and important step. The data you extracted is o
 *   **Combining Data:** Joining data from different sources (e.g., linking customer information with their sales orders).
 *   **Aggregating Data:** Summarizing data (e.g., calculating the total sales per day or per customer).
 *   **Calculating New Values:** Creating new pieces of information based on the raw data (e.g., calculating profit margin from sale price and cost, or determining a customer's age group based on their birth date).
-*   **Restructuring Data:** Changing the layout of the data to fit the data model in your warehouse (more on [Data Modeling](05_data_modeling_.md) later!).
+*   **Restructuring Data:** Changing the layout of the data to fit the data model in your warehouse (more on [Data Modeling](#data-modeling) later!).
 
 This is where you apply the "recipe" to turn raw ingredients into a prepared meal. For our analysis question ("Which age group..."), this step would involve linking sales data to customer data, calculating age groups, and standardizing product names.
 
-We often refer to how tables are named during this transformation process, following rules like those in [Naming Conventions](06_naming_conventions_.md).
+We often refer to how tables are named during this transformation process, following rules like those in [Naming Conventions](#naming-conventions).
 
 ### Step 3: Load (Serving the Meal)
 
-In this final step, the transformed, clean data is moved into the data warehouse. The data is organized and stored in specific places, usually in [Tables](04_tables_.md), ready for people to access and analyze.
+In this final step, the transformed, clean data is moved into the data warehouse. The data is organized and stored in specific places, usually in [Tables](#tables), ready for people to access and analyze.
 
 **What happens:**
 
@@ -164,7 +164,7 @@ In this final step, the transformed, clean data is moved into the data warehouse
 *   Writing the transformed data into the correct tables.
 *   This could mean adding new records (like new sales) or updating existing ones (like a customer changing their address).
 
-This is like placing the finished, cooked dishes onto the correct shelves or sections in our data library ([Tables](04_tables_.md)), organized according to our library's plan ([Data Modeling](05_data_modeling_.md)).
+This is like placing the finished, cooked dishes onto the correct shelves or sections in our data library ([Tables](#tables)), organized according to our library's plan ([Data Modeling](#data-modeling)).
 
 ## ETL Pipeline Flow
 
@@ -197,7 +197,7 @@ How does ETL help us answer "Which age group of customers who visited our websit
 
 1.  **Extract:** The ETL pipeline extracts data from your sales system, your customer database, and your website logs.
 2.  **Transform:** The pipeline cleans this data, links sales records to customers, calculates age groups, standardizes product names, and potentially filters website visits to the last month. It gets the data ready so that all the necessary pieces of information (sale, customer age, website visit) can be connected.
-3.  **Load:** The clean, connected data is loaded into the data warehouse into specific tables designed for analysis (following your [Data Modeling](05_data_modeling_.md) plan).
+3.  **Load:** The clean, connected data is loaded into the data warehouse into specific tables designed for analysis (following your [Data Modeling](#data-modeling) plan).
 
 Now, because the ETL pipeline has done the hard work of bringing the relevant data together and cleaning it, analyzing it becomes much easier! You can query the organized data in the warehouse directly.
 
@@ -236,9 +236,9 @@ sequenceDiagram
 2.  **Transform:** The ETL process starts working on the copy:
     *   It standardizes city names: 'LA' becomes 'Los Angeles', 'new york' becomes 'New York'. It might handle the missing city for Eve (perhaps mark it as 'Unknown').
     *   It calculates the age group based on `date_of_birth` (e.g., '20s', '30s', '40s').
-    *   It renames `cust_id` to `customer_source_id` to indicate it's the ID from the source system (following [Naming Conventions](06_naming_conventions_.md)).
-    *   It generates a new, unique `customer_key` for each customer, which will be the primary key in the data warehouse table ([Naming Conventions](06_naming_conventions_.md)).
-3.  **Load:** The clean, transformed data is inserted into a table in the data warehouse, perhaps named `dim_customers` (following [Naming Conventions](06_naming_conventions_.md) and [Data Modeling](05_data_modeling_.md)).
+    *   It renames `cust_id` to `customer_source_id` to indicate it's the ID from the source system (following [Naming Conventions](#naming-conventions)).
+    *   It generates a new, unique `customer_key` for each customer, which will be the primary key in the data warehouse table ([Naming Conventions](#naming-conventions)).
+3.  **Load:** The clean, transformed data is inserted into a table in the data warehouse, perhaps named `dim_customers` (following [Naming Conventions](#naming-conventions) and [Data Modeling](#data-modeling)).
 
 **Data Warehouse: `dim_customers` table after loading**
 
@@ -250,7 +250,7 @@ sequenceDiagram
 | 4             | 104                  | David Williams | New York       | 40s        | 2023-10-27      |
 | 5             | 105                  | Eve Adams      | Unknown        | 20s        | 2023-10-27      |
 
-See how the data is now cleaner, more standardized, has new useful information (`age_group`, `customer_key`), and includes a technical column like `dwh_load_date` ([Naming Conventions](06_naming_conventions_.md)) added by the ETL process? This is the power of the transformation step!
+See how the data is now cleaner, more standardized, has new useful information (`age_group`, `customer_key`), and includes a technical column like `dwh_load_date` ([Naming Conventions](#naming-conventions)) added by the ETL process? This is the power of the transformation step!
 
 ## Conceptual Code Examples
 
@@ -334,7 +334,7 @@ ETL pipelines are the engine that drives data into the data warehouse. They auto
 
 Now that we understand how data gets *into* the data warehouse and is prepared, how do we organize the data *within* the warehouse itself? Is there a standard way to structure the different stages of transformed data? Yes, and that's what we'll explore in the next chapter.
 
-[Next Chapter: Medallion Architecture (Layers)](03_medallion_architecture__layers__.md)
+[Next Chapter: Medallion Architecture (Layers)](#medallion-architecture-layers)
 
 ---
 
@@ -342,7 +342,7 @@ Now that we understand how data gets *into* the data warehouse and is prepared, 
 
 ## Medallion Architecture (Layers)
 
-Welcome back! In [Chapter 1: Data Warehouse](01_data_warehouse_.md), we learned that a data warehouse is our central, organized library for business data. In [Chapter 2: ETL Pipelines](02_etl_pipelines_.md), we discovered how ETL (Extract, Transform, Load) is the process that brings raw data into the warehouse and starts cleaning and preparing it.
+Welcome back! In [Chapter 1: Data Warehouse](01_data_warehouse_.md), we learned that a data warehouse is our central, organized library for business data. In [Chapter 2: ETL Pipelines](#etl-pipelines), we discovered how ETL (Extract, Transform, Load) is the process that brings raw data into the warehouse and starts cleaning and preparing it.
 
 Now that the data is arriving, where does it go inside the warehouse? Do we just dump everything into one big pile? Or do we keep the raw data, the semi-cleaned data, and the fully ready-to-analyze data separate?
 
@@ -378,7 +378,7 @@ Let's explore each layer.
     *   **Resiliency:** If there's a mistake in a transformation step later on, you can easily re-process the original raw data from Bronze rather than going back to the source system.
     *   **Speed to Ingest:** You can land data quickly without complex transformation logic slowing things down.
 *   **Analogy:** This is like the delivery truck dropping off all the raw ingredients (vegetables, meat, spices) from various markets into a receiving area. They aren't washed, chopped, or mixed yet.
-*   **Naming Convention (Ref. [Naming Conventions](06_naming_conventions_.md)):** Tables here often follow a pattern like `<sourcesystem>_<entity>`, keeping the original source names. E.g., `crm_customer_info`, `erp_sales_orders`. You might add technical columns like `dwh_load_date` here (as mentioned in [Chapter 2: ETL Pipelines](02_etl_pipelines_.md) and [Naming Conventions](06_naming_conventions_.md)).
+*   **Naming Convention (Ref. [Naming Conventions](#naming-conventions)):** Tables here often follow a pattern like `<sourcesystem>_<entity>`, keeping the original source names. E.g., `crm_customer_info`, `erp_sales_orders`. You might add technical columns like `dwh_load_date` here (as mentioned in [Chapter 2: ETL Pipelines](#etl-pipelines) and [Naming Conventions](#naming-conventions)).
 
 ### 2. Silver Layer (The Refined Ingots)
 
@@ -393,13 +393,13 @@ Let's explore each layer.
     *   **Reusable:** The cleaned and integrated data in Silver can be the source for multiple Gold layer tables or different analytical needs.
     *   **Improved Data Quality:** Makes the data much more reliable than the raw Bronze data.
 *   **Analogy:** This is where the raw ingredients are washed, peeled, chopped, and prepared according to basic kitchen standards. They are ready to be used in various dishes but haven't been combined into a final meal yet.
-*   **Naming Convention (Ref. [Naming Conventions](06_naming_conventions_.md)):** Tables here might still reference source systems but are cleaner. E.g., `crm_customer_info`, but the *data inside* is clean. Or they might start becoming more conformed like `conformed_customer`. They will likely have generated keys like `customer_key` ([Naming Conventions](06_naming_conventions_.md)).
+*   **Naming Convention (Ref. [Naming Conventions](#naming-conventions)):** Tables here might still reference source systems but are cleaner. E.g., `crm_customer_info`, but the *data inside* is clean. Or they might start becoming more conformed like `conformed_customer`. They will likely have generated keys like `customer_key` ([Naming Conventions](#naming-conventions)).
 
 ### 3. Gold Layer (The Crafted Jewelry)
 
 *   **Purpose:** This is the final layer, containing highly refined data optimized for specific business use cases, reporting, and analysis.
 *   **Characteristics:**
-    *   Data is often structured in a way that is easy for business users and analytical tools to query (e.g., using [Data Modeling](05_data_modeling_.md) patterns like Star Schemas with fact and dimension [Tables](04_tables_.md)).
+    *   Data is often structured in a way that is easy for business users and analytical tools to query (e.g., using [Data Modeling](#data-modeling) patterns like Star Schemas with fact and dimension [Tables](#tables)).
     *   Includes aggregations and summary data (e.g., total sales per day, monthly active users).
     *   May involve denormalization for performance.
     *   This data directly feeds reports, dashboards, and advanced analytics.
@@ -408,11 +408,11 @@ Let's explore each layer.
     *   **Usability:** Data is structured and named in a way that aligns with business terms, making it easy for non-technical users to understand and use for reporting.
     *   **Business Focus:** Tailored to answer specific business questions and support particular reports.
 *   **Analogy:** This is the final step where the prepared ingredients are combined, cooked, and plated into the final dishes, ready to be served and enjoyed. They are optimized for presentation and consumption.
-*   **Naming Convention (Ref. [Naming Conventions](06_naming_conventions_.md)):** Tables here are typically named based on the business concept or the analytical model. E.g., `dim_customer`, `fact_sales`, `report_monthly_revenue`.
+*   **Naming Convention (Ref. [Naming Conventions](#naming-conventions)):** Tables here are typically named based on the business concept or the analytical model. E.g., `dim_customer`, `fact_sales`, `report_monthly_revenue`.
 
 ## How ETL Pipelines Fit with Medallion Architecture
 
-In [Chapter 2: ETL Pipelines](02_etl_pipelines_.md), we saw how ETL moves data from sources *into* the data warehouse. With the Medallion Architecture, ETL pipelines are responsible for moving data *between* the layers as well.
+In [Chapter 2: ETL Pipelines](#etl-pipelines), we saw how ETL moves data from sources *into* the data warehouse. With the Medallion Architecture, ETL pipelines are responsible for moving data *between* the layers as well.
 
 You might have separate ETL processes or stages for each transition:
 
@@ -475,7 +475,7 @@ Let's revisit the customer data example from Chapter 2 and see how it fits into 
         40s       | New York      | 1
         ```
         *   *Fits in:* This could be a `report_customer_summary` table in the Gold layer.
-    *   *Example 2 (Dimension Table):* The Silver customer data might be loaded into a `dim_customer` table ([Data Modeling](05_data_modeling_.md), [Naming Conventions](06_naming_conventions_.md)) in the Gold layer, specifically designed to link with sales fact tables for analyzing sales by customer attributes.
+    *   *Example 2 (Dimension Table):* The Silver customer data might be loaded into a `dim_customer` table ([Data Modeling](#data-modeling), [Naming Conventions](#naming-conventions)) in the Gold layer, specifically designed to link with sales fact tables for analyzing sales by customer attributes.
 
 The Medallion Architecture provides a clear path for data as it flows through the ETL process and becomes more refined and valuable for analysis.
 
@@ -525,9 +525,9 @@ The Medallion Architecture provides a robust framework for managing data evoluti
 
 The Medallion Architecture, with its Bronze, Silver, and Gold layers, gives us a clear strategy for organizing data within the data warehouse based on its level of cleanliness and transformation. It moves data from a raw state (Bronze) through cleaning and integration (Silver) to a final, business-ready format optimized for analysis (Gold). This layered approach makes our data pipeline more organized, resilient, and efficient.
 
-Now that we understand *how* data is layered, let's dive into the fundamental building blocks within these layers: the [Tables](04_tables_.md).
+Now that we understand *how* data is layered, let's dive into the fundamental building blocks within these layers: the [Tables](#tables).
 
-[Next Chapter: Tables](04_tables_.md)
+[Next Chapter: Tables](#tables)
 
 ---
 
@@ -536,7 +536,7 @@ Now that we understand *how* data is layered, let's dive into the fundamental bu
 
 Welcome back, data explorer!
 
-In our previous chapters, we learned that a [Data Warehouse](01_data_warehouse_.md) is our central data library. We saw how [ETL Pipelines](02_etl_pipelines_.md) are the processes that gather, clean, and move data into the warehouse. We also learned that we organize the data *within* the warehouse using the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md) (Bronze for raw data, Silver for cleaned data, Gold for business-ready data).
+In our previous chapters, we learned that a [Data Warehouse](01_data_warehouse_.md) is our central data library. We saw how [ETL Pipelines](#etl-pipelines) are the processes that gather, clean, and move data into the warehouse. We also learned that we organize the data *within* the warehouse using the [Medallion Architecture (Layers)](#medallion-architecture-layers) (Bronze for raw data, Silver for cleaned data, Gold for business-ready data).
 
 Now, let's talk about the fundamental structures where the data actually *lives* inside this organized library and within these layers. Think of these structures as the specific shelves, sections, and filing cabinets where the books (our data) are neatly placed. These are called **Tables**.
 
@@ -555,7 +555,7 @@ Imagine a table storing customer information. It might have columns like `custom
 
 ## Tables in the Medallion Architecture Layers
 
-We learned about the Bronze, Silver, and Gold layers in [Chapter 3: Medallion Architecture (Layers)](03_medallion_architecture__layers__.md). Tables are the physical structures that hold the data *within* each of these layers. The same data might exist in tables in different layers, but in different states of transformation.
+We learned about the Bronze, Silver, and Gold layers in [Chapter 3: Medallion Architecture (Layers)](#medallion-architecture-layers). Tables are the physical structures that hold the data *within* each of these layers. The same data might exist in tables in different layers, but in different states of transformation.
 
 Let's look at how tables are used in each layer:
 
@@ -564,23 +564,23 @@ Let's look at how tables are used in each layer:
 *   These tables store the data exactly as it was extracted from the source systems.
 *   They typically have the same columns and data structure as the original tables in the source system.
 *   Their purpose is to provide a raw, historical copy of the source data.
-*   You might add a technical column here, like `dwh_load_date` (referencing [Naming Conventions](06_naming_conventions_.md)) to track when the data was loaded, but minimal other transformations occur.
-*   Example Table Name (following [Naming Conventions](06_naming_conventions_.md)): `crm_customer_info` (raw customer data from the CRM system).
+*   You might add a technical column here, like `dwh_load_date` (referencing [Naming Conventions](#naming-conventions)) to track when the data was loaded, but minimal other transformations occur.
+*   Example Table Name (following [Naming Conventions](#naming-conventions)): `crm_customer_info` (raw customer data from the CRM system).
 
 ### Silver Layer Tables (The Cleaned & Organized Shelves)
 
 *   These tables store data that has been cleaned, standardized, and potentially integrated from one or more Bronze tables.
 *   Columns might be renamed, data types corrected, missing values handled, and data combined from different sources.
 *   This layer provides a reliable, single source of truth for core business entities like customers, products, or locations.
-*   These tables often include generated keys (like `customer_key` from [Naming Conventions](06_naming_conventions_.md)) to uniquely identify rows, which are crucial for linking data later ([Data Modeling](05_data_modeling_.md)).
-*   Example Table Name (following [Naming Conventions](06_naming_conventions_.md)): `crm_customer_info` (same name as bronze, but *data inside* is clean) or perhaps `silver_customer_conformed`.
+*   These tables often include generated keys (like `customer_key` from [Naming Conventions](#naming-conventions)) to uniquely identify rows, which are crucial for linking data later ([Data Modeling](#data-modeling)).
+*   Example Table Name (following [Naming Conventions](#naming-conventions)): `crm_customer_info` (same name as bronze, but *data inside* is clean) or perhaps `silver_customer_conformed`.
 
 ### Gold Layer Tables (The Ready-for-Analysis Sections)
 
 *   These tables store data that is highly refined, aggregated, and structured specifically for reporting and analysis.
-*   They are built from Silver layer tables and often follow specific [Data Modeling](05_data_modeling_.md) patterns like fact and dimension tables.
+*   They are built from Silver layer tables and often follow specific [Data Modeling](#data-modeling) patterns like fact and dimension tables.
 *   Data here is optimized for fast querying by reporting tools and business users.
-*   Example Table Names (following [Naming Conventions](06_naming_conventions_.md)):
+*   Example Table Names (following [Naming Conventions](#naming-conventions)):
     *   `dim_customer` (a dimension table for customer attributes, built from Silver customer data).
     *   `fact_sales` (a fact table storing sales events and linking to dimensions like `dim_customer`, `dim_product`, `dim_date`).
 
@@ -656,7 +656,7 @@ These examples use SQL, which is the standard language for interacting with rela
 
 ## Naming Your Tables
 
-As we briefly touched upon, following clear [Naming Conventions](06_naming_conventions_.md) for your tables is crucial. It helps everyone understand what data a table contains and its purpose within the data warehouse layers.
+As we briefly touched upon, following clear [Naming Conventions](#naming-conventions) for your tables is crucial. It helps everyone understand what data a table contains and its purpose within the data warehouse layers.
 
 Referencing our naming convention document ([Docs/naming_conventions.md](Docs/naming_conventions.md)), we saw examples:
 
@@ -668,7 +668,7 @@ Using these conventions makes your data warehouse much more organized and easier
 
 ## Using Tables for Analysis
 
-Once the data has gone through the ETL pipeline and been loaded into the organized tables in the Gold layer (especially fact and dimension tables following [Data Modeling](05_data_modeling_.md) principles), it's ready for analysis.
+Once the data has gone through the ETL pipeline and been loaded into the organized tables in the Gold layer (especially fact and dimension tables following [Data Modeling](#data-modeling) principles), it's ready for analysis.
 
 Analysts and business users interact directly with these Gold layer tables using query tools. For example, to find the total sales amount from the `fact_sales` table:
 
@@ -683,11 +683,11 @@ To answer our original question ("Which age group of customers who visited our w
 
 ## Conclusion
 
-Tables are the fundamental building blocks within a data warehouse. They are structured grids of rows and columns that physically store the data. Tables exist within each layer of the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md), representing the data in its raw, cleaned, and business-ready states. [ETL Pipelines](02_etl_pipelines_.md) are responsible for moving and transforming data between these tables. Following clear [Naming Conventions](06_naming_conventions_.md) for tables keeps the warehouse organized. Ultimately, the well-structured tables in the Gold layer are what users query to gain insights and make decisions.
+Tables are the fundamental building blocks within a data warehouse. They are structured grids of rows and columns that physically store the data. Tables exist within each layer of the [Medallion Architecture (Layers)](#medallion-architecture-layers), representing the data in its raw, cleaned, and business-ready states. [ETL Pipelines](#etl-pipelines) are responsible for moving and transforming data between these tables. Following clear [Naming Conventions](#naming-conventions) for tables keeps the warehouse organized. Ultimately, the well-structured tables in the Gold layer are what users query to gain insights and make decisions.
 
-Now that we know data lives in tables, how do we decide *what* tables to create in the Silver and especially the Gold layers, and how should they be structured and related to make analysis efficient? That's where [Data Modeling](05_data_modeling_.md) comes in.
+Now that we know data lives in tables, how do we decide *what* tables to create in the Silver and especially the Gold layers, and how should they be structured and related to make analysis efficient? That's where [Data Modeling](#data-modeling) comes in.
 
-[Next Chapter: Data Modeling](05_data_modeling_.md)
+[Next Chapter: Data Modeling](#data-modeling)
 
 ---
 
@@ -695,15 +695,15 @@ Now that we know data lives in tables, how do we decide *what* tables to create 
 
 ## Data Modeling
 
-Welcome back! In our last few chapters, we've learned that a [Data Warehouse](01_data_warehouse_.md) is our organized data library, and [ETL Pipelines](02_etl_pipelines_.md) are the processes that bring data in and clean it, organizing it into layers using the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md) (Bronze, Silver, Gold). We also saw that the data itself is stored physically within these layers in [Tables](04_tables_.md).
+Welcome back! In our last few chapters, we've learned that a [Data Warehouse](01_data_warehouse_.md) is our organized data library, and [ETL Pipelines](#etl-pipelines) are the processes that bring data in and clean it, organizing it into layers using the [Medallion Architecture (Layers)](#medallion-architecture-layers) (Bronze, Silver, Gold). We also saw that the data itself is stored physically within these layers in [Tables](#tables).
 
-So, we have data, it's clean (in the Silver layer), and it's ready to be put into the final layer, the Gold layer, which is designed specifically for analysis. But how do we structure the [Tables](04_tables_.md) in that Gold layer? Do we just make a giant table with everything in it? Or do we keep things separate? And how do we make sure the data is easy for analysis tools and business users to query?
+So, we have data, it's clean (in the Silver layer), and it's ready to be put into the final layer, the Gold layer, which is designed specifically for analysis. But how do we structure the [Tables](#tables) in that Gold layer? Do we just make a giant table with everything in it? Or do we keep things separate? And how do we make sure the data is easy for analysis tools and business users to query?
 
 This is where **Data Modeling** comes in.
 
 ## What is Data Modeling?
 
-Think of Data Modeling as creating the **blueprint** or the **map** for your data in the Gold layer. It's the process of deciding *how* to structure your [Tables](04_tables_.md) and *how* they should relate to each other so that you can easily and efficiently answer business questions.
+Think of Data Modeling as creating the **blueprint** or the **map** for your data in the Gold layer. It's the process of deciding *how* to structure your [Tables](#tables) and *how* they should relate to each other so that you can easily and efficiently answer business questions.
 
 The main goal of data modeling in a data warehouse is to make data **easy and fast for analysis**. Unlike databases designed for recording transactions (like placing an order online), data warehouse databases are designed for reading and summarizing data across many records (like analyzing *all* orders placed last month).
 
@@ -734,7 +734,7 @@ Dimensional modeling helps us organize these pieces of information into those tw
     *   **Dates:** Year, month, day, day of week, holiday flag, etc.
     *   **Locations:** City, state, country, store name, etc.
 *   **Structure:** Each row in a dimension table represents a unique instance of that *thing* (a unique customer, a unique product).
-*   **Keys:** Every dimension table has a unique identifier column, often called a **Surrogate Key** ([Naming Conventions](06_naming_conventions_.md)). This key is usually a simple integer (like 1, 2, 3...) and is used to link this dimension table to the fact tables. Following our [Naming Conventions](06_naming_conventions_.md), this key typically ends with `_key` (e.g., `customer_key`, `product_key`).
+*   **Keys:** Every dimension table has a unique identifier column, often called a **Surrogate Key** ([Naming Conventions](#naming-conventions)). This key is usually a simple integer (like 1, 2, 3...) and is used to link this dimension table to the fact tables. Following our [Naming Conventions](#naming-conventions), this key typically ends with `_key` (e.g., `customer_key`, `product_key`).
 
 **Analogy:** In our data library, dimension tables are like the **catalog cards** or **descriptive labels** for the books. A card for "The Lord of the Rings" might have attributes like Title, Author, Genre, Publisher, Year Published.
 
@@ -807,7 +807,7 @@ Because the tables are structured this way, tools and SQL queries can easily nav
 
 ## Conceptual Table Structures
 
-Let's look at *very* simplified conceptual SQL for the table structures in the Gold layer, referencing [Tables](04_tables_.md) and [Naming Conventions](06_naming_conventions_.md). These tables would be created and loaded by ETL processes taking data from the Silver layer.
+Let's look at *very* simplified conceptual SQL for the table structures in the Gold layer, referencing [Tables](#tables) and [Naming Conventions](#naming-conventions). These tables would be created and loaded by ETL processes taking data from the Silver layer.
 
 ```sql
 -- Conceptual SQL to CREATE a Gold Layer Dimension Table (dim_customer)
@@ -874,7 +874,7 @@ CREATE TABLE gold.fact_sales (
 
 ## Data Modeling and the ETL Pipeline / Medallion Architecture
 
-Data modeling defines the *target structure* for the Gold layer. The ETL pipelines ([Chapter 2: ETL Pipelines](02_etl_pipelines_.md)), specifically the ones moving data from Silver to Gold within the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md), are responsible for building and loading these dimension and fact tables.
+Data modeling defines the *target structure* for the Gold layer. The ETL pipelines ([Chapter 2: ETL Pipelines](#etl-pipelines)), specifically the ones moving data from Silver to Gold within the [Medallion Architecture (Layers)](#medallion-architecture-layers), are responsible for building and loading these dimension and fact tables.
 
 ```mermaid
 graph LR
@@ -905,15 +905,15 @@ For example, when loading a sales transaction into `fact_sales`, the ETL process
 
 ## Importance of Naming Conventions in Data Modeling
 
-As you can see from the conceptual table structures, following [Naming Conventions](06_naming_conventions_.md) is absolutely critical in data modeling. Prefixes like `dim_` and `fact_` immediately tell you the table's role. Suffixes like `_key` clearly identify the columns used to link tables. This makes the data model much easier for anyone to understand and use.
+As you can see from the conceptual table structures, following [Naming Conventions](#naming-conventions) is absolutely critical in data modeling. Prefixes like `dim_` and `fact_` immediately tell you the table's role. Suffixes like `_key` clearly identify the columns used to link tables. This makes the data model much easier for anyone to understand and use.
 
 ## Conclusion
 
-Data Modeling is the essential step of designing the structure of your Gold layer [Tables](04_tables_.md) to make data analysis efficient. By organizing data into descriptive **Dimension Tables** and event/measurement **Fact Tables**, typically using a **Star Schema** pattern, you create a clear, navigable blueprint. This blueprint allows analysts and reporting tools to quickly find and aggregate the information needed to answer complex business questions like the one we discussed. The ETL processes ([ETL Pipelines](02_etl_pipelines_.md)) are what build and populate these modeled tables, taking cleaned data from the Silver layer ([Medallion Architecture (Layers)](03_medallion_architecture__layers__.md)) and applying the structure defined by the data model. Following clear [Naming Conventions](06_naming_conventions_.md) is key to making your data model understandable.
+Data Modeling is the essential step of designing the structure of your Gold layer [Tables](#tables) to make data analysis efficient. By organizing data into descriptive **Dimension Tables** and event/measurement **Fact Tables**, typically using a **Star Schema** pattern, you create a clear, navigable blueprint. This blueprint allows analysts and reporting tools to quickly find and aggregate the information needed to answer complex business questions like the one we discussed. The ETL processes ([ETL Pipelines](#etl-pipelines)) are what build and populate these modeled tables, taking cleaned data from the Silver layer ([Medallion Architecture (Layers)](#medallion-architecture-layers)) and applying the structure defined by the data model. Following clear [Naming Conventions](#naming-conventions) is key to making your data model understandable.
 
-Now that we know how to structure our data with Data Modeling, let's take a closer look at those crucial rules for naming things that we've referenced multiple times – [Naming Conventions](06_naming_conventions_.md).
+Now that we know how to structure our data with Data Modeling, let's take a closer look at those crucial rules for naming things that we've referenced multiple times – [Naming Conventions](#naming-conventions).
 
-[Next Chapter: Naming Conventions](06_naming_conventions_.md)
+[Next Chapter: Naming Conventions](#naming-conventions)
 
 ---
 
@@ -922,7 +922,7 @@ Now that we know how to structure our data with Data Modeling, let's take a clos
 
 ## Naming Conventions
 
-Welcome back! In our journey through the data warehouse, we've learned that it's our organized data library ([Chapter 1: Data Warehouse](01_data_warehouse_.md)). We use [ETL Pipelines](02_etl_pipelines_.md) ([Chapter 2]) to fill it with data, organizing that data into layers ([Chapter 3: Medallion Architecture (Layers)](03_medallion_architecture__layers__.md)) of increasing cleanliness (Bronze, Silver, Gold). Inside these layers, the data lives in [Tables](04_tables_.md) ([Chapter 4]), structured by [Data Modeling](05_data_modeling_.md) ([Chapter 5]), especially in the Gold layer, to make analysis easy.
+Welcome back! In our journey through the data warehouse, we've learned that it's our organized data library ([Chapter 1: Data Warehouse](01_data_warehouse_.md)). We use [ETL Pipelines](#etl-pipelines) ([Chapter 2]) to fill it with data, organizing that data into layers ([Chapter 3: Medallion Architecture (Layers)](#medallion-architecture-layers)) of increasing cleanliness (Bronze, Silver, Gold). Inside these layers, the data lives in [Tables](#tables) ([Chapter 4]), structured by [Data Modeling](#data-modeling) ([Chapter 5]), especially in the Gold layer, to make analysis easy.
 
 Throughout these chapters, you might have noticed we've been using specific ways to name our tables and columns – like `dim_customers`, `fact_sales`, `customer_key`, and `dwh_load_date`. Why is this important?
 
@@ -966,7 +966,7 @@ These apply everywhere:
 
 ### Table Naming Conventions
 
-Table names often reflect which layer of the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md) they belong to, and where the data came from or what it's used for ([Data Modeling](05_data_modeling_.md)).
+Table names often reflect which layer of the [Medallion Architecture (Layers)](#medallion-architecture-layers) they belong to, and where the data came from or what it's used for ([Data Modeling](#data-modeling)).
 
 Here's how we typically name tables in each layer, following the document:
 
@@ -983,7 +983,7 @@ Here's how we typically name tables in each layer, following the document:
     *   **Explanation:** This table in the Silver schema contains the *cleaned and standardized* customer data that originated from the CRM system. (Some conventions might name this differently, like `silver_crm_customer_info` or `conformed_customer`, but our documented rule keeps it simple).
 
 *   **Gold Layer Tables:**
-    *   **Rule:** Use meaningful business names, starting with a category prefix based on [Data Modeling](05_data_modeling_.md) principles.
+    *   **Rule:** Use meaningful business names, starting with a category prefix based on [Data Modeling](#data-modeling) principles.
     *   **Pattern:** `<category>_<entity>`
     *   **Examples:**
         *   `dim_customers`
@@ -1003,13 +1003,13 @@ Specific rules make it easy to identify columns with special roles:
     *   **Rule:** Primary keys in dimension tables should end with `_key`.
     *   **Pattern:** `<table_name>_key`
     *   **Example:** `customer_key`
-    *   **Explanation:** When you see `customer_key`, you immediately know this is the unique identifier used to link to the `dim_customers` table. As seen in [Data Modeling](05_data_modeling_.md), these keys are crucial for linking facts and dimensions.
+    *   **Explanation:** When you see `customer_key`, you immediately know this is the unique identifier used to link to the `dim_customers` table. As seen in [Data Modeling](#data-modeling), these keys are crucial for linking facts and dimensions.
 
 *   **Technical Columns:**
     *   **Rule:** System-generated columns, like timestamps or load dates, start with `dwh_`.
     *   **Pattern:** `dwh_<column_name>`
     *   **Example:** `dwh_load_date`
-    *   **Explanation:** This tells you the column contains metadata added by the data warehouse process itself, not original source data. We saw this mentioned in [ETL Pipelines](02_etl_pipelines_.md).
+    *   **Explanation:** This tells you the column contains metadata added by the data warehouse process itself, not original source data. We saw this mentioned in [ETL Pipelines](#etl-pipelines).
 
 ### Stored Procedure Naming
 
@@ -1100,9 +1100,8 @@ Following this documented standard is key to making the data warehouse usable an
 
 Naming conventions are a simple yet powerful tool in data warehousing. By applying consistent rules for naming tables, columns, and other objects – like using `snake_case`, prefixes for layers/types (`dim_`, `fact_`, `dwh_`), and suffixes for keys (`_key`) – you create a data warehouse that is easy to understand, navigate, and maintain. This clear labeling system, defined in a document like `Docs/naming_conventions.md`, is essential for collaboration and ensures that the valuable data you've collected and organized is easily accessible for analysis.
 
-This concludes our introductory tutorial chapters for the `Datawarehouse` project. We've gone from understanding the core concept of a data warehouse ([Chapter 1]) and how data gets into it via [ETL Pipelines](02_etl_pipelines_.md) ([Chapter 2]), to organizing that data internally using the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md) ([Chapter 3]), storing it in [Tables](04_tables_.md) ([Chapter 4]), structuring those tables for analysis with [Data Modeling](05_data_modeling_.md) ([Chapter 5]), and finally, ensuring everything is clearly labeled with [Naming Conventions](06_naming_conventions_.md) (this chapter).
+This concludes our introductory tutorial chapters for the `Datawarehouse` project. We've gone from understanding the core concept of a data warehouse ([Chapter 1]) and how data gets into it via [ETL Pipelines](#etl-pipelines) ([Chapter 2]), to organizing that data internally using the [Medallion Architecture (Layers)](#medallion-architecture-layers) ([Chapter 3]), storing it in [Tables](#tables) ([Chapter 4]), structuring those tables for analysis with [Data Modeling](#data-modeling) ([Chapter 5]), and finally, ensuring everything is clearly labeled with [Naming Conventions](#naming-conventions) (this chapter).
 
 You now have a foundational understanding of the key concepts that make a data warehouse a powerful tool for business intelligence and decision-making!
 
 ---
-
