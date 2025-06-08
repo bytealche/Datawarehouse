@@ -30,7 +30,7 @@ flowchart TD
 ## Chapters
 
 1. [Data Warehouse
-](01_data_warehouse_.md)
+](Data_warehouse.md)
 2. [ETL Pipelines
 ](02_etl_pipelines_.md)
 3. [Medallion Architecture (Layers)
@@ -94,7 +94,6 @@ In summary, a data warehouse is a powerful central hub that makes it possible to
 
 Ready to learn how data actually gets into this organized "library"? Let's move on!
 
-[Next Chapter: ETL Pipelines](02_etl_pipelines_.md)
 
 ---
 
