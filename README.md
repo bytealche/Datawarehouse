@@ -29,23 +29,18 @@ flowchart TD
 
 ## Chapters
 
-1. [Data Warehouse
-](#data-warehouse)
-2. [ETL Pipelines
-](02_etl_pipelines_.md)
-3. [Medallion Architecture (Layers)
-](03_medallion_architecture__layers__.md)
-4. [Tables
-](04_tables_.md)
-5. [Data Modeling
-](05_data_modeling_.md)
-6. [Naming Conventions
-](06_naming_conventions_.md)
+1. [Data Warehouse](#data-warehouse)
+2. [ETL Pipelines](#etl-pipelines)
+3. [Medallion Architecture (Layers)](#medallion-architecture-layers)
+4. [Tables](#tables)
+5. [Data Modeling](#data-modeling)
+6. [Naming Conventions](#naming-conventions)
 
 ---
 
 
-# Chapter 1: Data Warehouse
+
+## Data Warehouse
 
 Welcome to the world of data warehouses! This is the very first step in understanding how we can bring together information from many different places to make smart decisions.
 
@@ -99,7 +94,7 @@ Ready to learn how data actually gets into this organized "library"? Let's move 
 
 
 
-# Chapter 2: ETL Pipelines
+## ETL Pipelines
 
 Welcome back! In [Chapter 1: Data Warehouse](01_data_warehouse_.md), we learned that a data warehouse is our central, organized library for important business data, designed to make analysis easy. We saw how it helps answer complex questions by bringing data together.
 
@@ -345,7 +340,7 @@ Now that we understand how data gets *into* the data warehouse and is prepared, 
 
 
 
-# Chapter 3: Medallion Architecture (Layers)
+## Medallion Architecture (Layers)
 
 Welcome back! In [Chapter 1: Data Warehouse](01_data_warehouse_.md), we learned that a data warehouse is our central, organized library for business data. In [Chapter 2: ETL Pipelines](02_etl_pipelines_.md), we discovered how ETL (Extract, Transform, Load) is the process that brings raw data into the warehouse and starts cleaning and preparing it.
 
@@ -537,7 +532,7 @@ Now that we understand *how* data is layered, let's dive into the fundamental bu
 ---
 
 
-# Chapter 4: Tables
+## Tables
 
 Welcome back, data explorer!
 
@@ -698,7 +693,7 @@ Now that we know data lives in tables, how do we decide *what* tables to create 
 
 
 
-# Chapter 5: Data Modeling
+## Data Modeling
 
 Welcome back! In our last few chapters, we've learned that a [Data Warehouse](01_data_warehouse_.md) is our organized data library, and [ETL Pipelines](02_etl_pipelines_.md) are the processes that bring data in and clean it, organizing it into layers using the [Medallion Architecture (Layers)](03_medallion_architecture__layers__.md) (Bronze, Silver, Gold). We also saw that the data itself is stored physically within these layers in [Tables](04_tables_.md).
 
@@ -925,7 +920,7 @@ Now that we know how to structure our data with Data Modeling, let's take a clos
 
 
 
-# Chapter 6: Naming Conventions
+## Naming Conventions
 
 Welcome back! In our journey through the data warehouse, we've learned that it's our organized data library ([Chapter 1: Data Warehouse](01_data_warehouse_.md)). We use [ETL Pipelines](02_etl_pipelines_.md) ([Chapter 2]) to fill it with data, organizing that data into layers ([Chapter 3: Medallion Architecture (Layers)](03_medallion_architecture__layers__.md)) of increasing cleanliness (Bronze, Silver, Gold). Inside these layers, the data lives in [Tables](04_tables_.md) ([Chapter 4]), structured by [Data Modeling](05_data_modeling_.md) ([Chapter 5]), especially in the Gold layer, to make analysis easy.
 
